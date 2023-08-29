@@ -1,0 +1,43 @@
+#Defines a function named factorial, with an argument x
+#(x = 1) sets the value to 1 if it isn't provided when called
+# <-function is what creates the function
+factorial <- function(x = 1) 
+{
+	#if statement is self explanatory, arithmetic operators function like normal
+	if(x > 1)
+    {
+    	#return outputs a value from the function as in c++
+        
+        #this function recursively calls factorial to multiply x value by one less than it
+        
+        #returns the current value multiplied by the next lowest, multiplied by the next lowest, 
+        #and so on until the next lowest is 1
+ 	 	return (x * factorial(x - 1))
+        			
+ 	}
+    #else if behaves as expected as well
+  	else if(x < 0)
+    {
+ 		print("Can't find factorial of a negative number")
+  		return (0)
+ 	}
+    #else behaves as expected; any scenario not described above is caught here
+    #in this example it catches the case where x is 0 or 1
+ 	else
+    {
+    	#1! and 0! = 1 and this case also
+    	#ends recursion by returning 1 to call
+    	return (1)
+  	}
+}
+#End of factorial function
+
+#no main required, just commands to execute
+#"print" displays data to screen
+#each "factorial" is the function call
+
+
+print(factorial(5))
+print(factorial(3))
+print(factorial(-1))
+print(factorial())
