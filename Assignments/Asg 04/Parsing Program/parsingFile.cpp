@@ -70,14 +70,14 @@ std::stack<char> stringToStack(std::string expression)
 void printStateStack(std::stack<int> state)
 {
     std::stack<int> reload;
-    for (int i = 0; i<= state.size();i++)
+    while(!state.empty())
     {
         reload.push(state.top());
         state.pop();
     }
-    for (int i = 0; i<=reload.size();i++)
+    while(!reload.empty())
     {
-        fileOut<<"S"<<reload.top();
+        fileOut<<"S"<<reload.top()<<" ";
         state.push(reload.top());
         reload.pop();
     }
@@ -90,6 +90,7 @@ void printRemainingInput(std::stack<char> expression)
     while(!expression.empty())
     {
         expStr += expression.top();
+        expStr+=" ";
         expression.pop();
     }
     fileOut << expStr << ",";
@@ -136,7 +137,10 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
     //START NEW FUNCTION RETURN BOOL
     std::string tempStr;
     if(foundAction =="")
+    {
+        fileOut << " Undefined action; expression failed because it isn't supported.\n";
         return false;
+    }       
     else if(foundAction == "accept")
         {
             fileOut << foundAction << std::endl;
@@ -259,11 +263,11 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
 
 int main()
 {
-    std::stack<char> a = stringToStack("A+B*C$");
+    std::stack<char> a = stringToStack("(A + B + C) * A * (B * C)$");
     std::stack<int> b;
     b.push(0);
 
-    fileOut.open("../Expression1.csv");
+    fileOut.open("../Expression5.csv");
     if(!fileOut.is_open())
         return 9;
     if (parseExpression(a,b))

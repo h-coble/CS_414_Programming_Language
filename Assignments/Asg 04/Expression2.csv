@@ -1,6 +1,10 @@
-S0 ,I + I * I $ ,S5: Shift S5 onto stack and continue with next input.
-S0 S5 ,+ I * I $ ,Reduce by R6: F -> I	Pop 1 from state stack and go to S3. Input remains.
-S0 S3 ,+ I * I $ ,Reduce by R4: T -> F	Pop 1 from state stack and go to S2. Input remains.
+S0 ,I * I + I * I $ ,S5: Shift S5 onto stack and continue with next input.
+S0 S5 ,* I + I * I $ ,Reduce by R6: F -> I	Pop 1 from state stack and go to S3. Input remains.
+S0 S3 ,* I + I * I $ ,Reduce by R4: T -> F	Pop 1 from state stack and go to S2. Input remains.
+S0 S2 ,* I + I * I $ ,S7: Shift S7 onto stack and continue with next input.
+S0 S2 S7 ,I + I * I $ ,S5: Shift S5 onto stack and continue with next input.
+S0 S2 S7 S5 ,+ I * I $ ,Reduce by R6: F -> I	Pop 1 from state stack and go to S10. Input remains.
+S0 S2 S7 S10 ,+ I * I $ ,Reduce by R3: T -> T * F	Pop 3 from state stack and go to S2. Input remains.
 S0 S2 ,+ I * I $ ,Reduce by R2: E -> T	Pop 1 from state stack and go to S1. Input remains.
 S0 S1 ,+ I * I $ ,S6: Shift S6 onto stack and continue with next input.
 S0 S1 S6 ,I * I $ ,S5: Shift S5 onto stack and continue with next input.

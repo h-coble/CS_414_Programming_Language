@@ -1,0 +1,24 @@
+S0 ,( ( ( I * I ) ) ) $ ,S4: Shift S4 onto stack and continue with next input.
+S0 S4 ,( ( I * I ) ) ) $ ,S4: Shift S4 onto stack and continue with next input.
+S0 S4 S4 ,( I * I ) ) ) $ ,S4: Shift S4 onto stack and continue with next input.
+S0 S4 S4 S4 ,I * I ) ) ) $ ,S5: Shift S5 onto stack and continue with next input.
+S0 S4 S4 S4 S5 ,* I ) ) ) $ ,Reduce by R6: F -> I	Pop 1 from state stack and go to S3. Input remains.
+S0 S4 S4 S4 S3 ,* I ) ) ) $ ,Reduce by R4: T -> F	Pop 1 from state stack and go to S2. Input remains.
+S0 S4 S4 S4 S2 ,* I ) ) ) $ ,S7: Shift S7 onto stack and continue with next input.
+S0 S4 S4 S4 S2 S7 ,I ) ) ) $ ,S5: Shift S5 onto stack and continue with next input.
+S0 S4 S4 S4 S2 S7 S5 ,) ) ) $ ,Reduce by R6: F -> I	Pop 1 from state stack and go to S10. Input remains.
+S0 S4 S4 S4 S2 S7 S10 ,) ) ) $ ,Reduce by R3: T -> T * F	Pop 3 from state stack and go to S2. Input remains.
+S0 S4 S4 S4 S2 ,) ) ) $ ,Reduce by R2: E -> T	Pop 1 from state stack and go to S8. Input remains.
+S0 S4 S4 S4 S8 ,) ) ) $ ,S11: Shift S11 onto stack and continue with next input.
+S0 S4 S4 S4 S8 S11 ,) ) $ ,Reduce by R5: F -> (E)	Pop 3 from state stack and go to S3. Input remains.
+S0 S4 S4 S3 ,) ) $ ,Reduce by R4: T -> F	Pop 1 from state stack and go to S2. Input remains.
+S0 S4 S4 S2 ,) ) $ ,Reduce by R2: E -> T	Pop 1 from state stack and go to S8. Input remains.
+S0 S4 S4 S8 ,) ) $ ,S11: Shift S11 onto stack and continue with next input.
+S0 S4 S4 S8 S11 ,) $ ,Reduce by R5: F -> (E)	Pop 3 from state stack and go to S3. Input remains.
+S0 S4 S3 ,) $ ,Reduce by R4: T -> F	Pop 1 from state stack and go to S2. Input remains.
+S0 S4 S2 ,) $ ,Reduce by R2: E -> T	Pop 1 from state stack and go to S8. Input remains.
+S0 S4 S8 ,) $ ,S11: Shift S11 onto stack and continue with next input.
+S0 S4 S8 S11 ,$ ,Reduce by R5: F -> (E)	Pop 3 from state stack and go to S3. Input remains.
+S0 S3 ,$ ,Reduce by R4: T -> F	Pop 1 from state stack and go to S2. Input remains.
+S0 S2 ,$ ,Reduce by R2: E -> T	Pop 1 from state stack and go to S1. Input remains.
+S0 S1 ,$ ,accept

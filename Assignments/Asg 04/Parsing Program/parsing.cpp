@@ -2,6 +2,7 @@
 #include <vector>
 #include <stack>
 #include <string>
+#include <iomanip>
 
 enum action //used for easy tracking of index of 2D array
 {
@@ -68,20 +69,25 @@ std::stack<char> stringToStack(std::string expression)
 void printStateStack(std::stack<int> state)
 {
     std::stack<int> reload;
+    std::string tempStr="";
     while(!state.empty())
     {
         reload.push(state.top());
         state.pop();
     }
-
-    std::cout << std::endl;
     while(!reload.empty())
     {
-        std::cout<<"S"<<reload.top();
+        tempStr+= "S";
+        if(reload.top() < 10)
+            tempStr+= reload.top() + '0';
+        else if( reload.top() == 10)
+            tempStr+= "10";
+        else if(reload.top() == 11)
+            tempStr+= 11;
         state.push(reload.top());
         reload.pop();
     }
-    std::cout << "\t\t ";
+    std::cout << std::setw(25) <<std::left << tempStr;
 }
 
 void printRemainingInput(std::stack<char> expression)
@@ -90,16 +96,16 @@ void printRemainingInput(std::stack<char> expression)
     while(!expression.empty())
     {
         expStr += expression.top();
+        //expStr+=" ";
         expression.pop();
     }
-    std::cout << expStr << "\t\t ";
+    std::cout << std::setw(25) << std::left << expStr;
 
     expression = stringToStack(expStr);
 }
 
 bool parseExpression(std::stack<char> expression,std::stack<int> state)
 {
-    //state must be initialized to only contain 0
     printStateStack(state);
     printRemainingInput(expression);
     
@@ -136,7 +142,10 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
     //START NEW FUNCTION RETURN BOOL
     std::string tempStr;
     if(foundAction =="")
+         {
+        std::cout << " Undefined action; expression failed because it isn't supported.\n";
         return false;
+        }  
     else if(foundAction == "accept")
         {
             std::cout << foundAction << std::endl;
@@ -144,13 +153,14 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
         }
     else
     {
+        
         switch(foundAction[0])
         {
             case 'S':
                 //Remove char S from string
                 
                 //string to int conversion for push
-                std::cout<<foundAction<<": Shift " <<foundAction<<" onto stack, and continue with next input.\n";
+                std::cout<<foundAction <<": Shift " <<foundAction<<" onto stack, and continue with next input.\n";
                 foundAction.erase(0,1);
                 state.push( std::stoi(foundAction) ) ;
                 
@@ -169,7 +179,7 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
                 {
                     case '1':
                         std::cout << RULE_1;
-                        std::cout << "\tPop 3 from state stack, go to ";
+                        std::cout << " Pop 3 from state stack, go to ";
                         //repeat x number of times
                         state.pop();
                         state.pop();
@@ -182,7 +192,7 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
 
                     case '2':
                         std::cout << RULE_2;
-                        std::cout << "\tPop 1 from state stack, go to ";
+                        std::cout << " Pop 1 from state stack, go to ";
                         //repeat x number of times
                         state.pop();
 
@@ -193,7 +203,7 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
 
                     case '3':
                         std::cout << RULE_3;
-                        std::cout << "\tPop 3 from state stack, go to ";
+                        std::cout << " Pop 3 from state stack, go to ";
                         //repeat x number of times
                         state.pop();
                         state.pop();
@@ -206,7 +216,7 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
 
                         case '4':
                         std::cout << RULE_4;
-                        std::cout << "\tPop 1 from state stack, go to ";
+                        std::cout << " Pop 1 from state stack, go to ";
                         //repeat x number of times
                         state.pop();
 
@@ -217,7 +227,7 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
 
                         case '5':
                         std::cout << RULE_5;
-                        std::cout << "\tPop 3 from state stack, go to ";
+                        std::cout << " Pop 3 from state stack, go to ";
                         //repeat x number of times
                         state.pop();
                         state.pop();
@@ -230,7 +240,7 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
 
                         case '6':
                         std::cout << RULE_6;
-                        std::cout << "\tPop 1 from state stack, go to ";
+                        std::cout << " Pop 1 from state stack, go to ";
                         //repeat x number of times
                         state.pop();
 
@@ -257,16 +267,40 @@ bool parseExpression(std::stack<char> expression,std::stack<int> state)
      
 }
 
-int main()
-{
-    std::stack<char> a = stringToStack("( A + B ) * ( C * D )$");
-    std::stack<int> b;
-    b.push(0);
-    if (parseExpression(a,b))
-        std::cout << "\nExpression is supported by the rules given by the table.\n";
-    else
-        std::cout << "\nExpression is not supported.\n";
+int main(){
+    std::string expression;
+    std::stack<char> expStack = stringToStack("A+B*C$");
+    std::stack<int> stateStack;
 
-    return 0;
+    while(true)
+    {
+        std::cout << "\n\nEnter your expression, ending with \'$\'\n"
+                  << "Please note that every character will be represented as I for \"id\"\n"
+                  << "Type \"Exit\" to exit.\n\n>";
+        std::getline(std::cin, expression);
+
+        if(expression == "Exit" || expression == "exit")
+            return 0;
+        else if (expression[expression.length()-1] != '$')
+        {
+            std::cerr << "\nExpression must end with $; re-enter expression with $.\n\n";
+            continue;
+        }
+        else
+            {
+                expStack = stringToStack(expression);
+                while(!stateStack.empty())
+                    stateStack.pop();
+
+                stateStack.push(0);
+                std::cout <<  std::setw(25)<<std::left <<"State Stack" << std::setw(25) <<std::left<< "Input" << "Action\n";
+                if (parseExpression(expStack,stateStack))
+                    std::cout << "\n\nExpression is supported by the rules given by the table.\n";
+                else
+                    std::cout << "\n\nExpression is not supported.\n";
+            }
+    }
+    std::cerr << "Loop broken.\n";
+    return -1;
 } 
 
