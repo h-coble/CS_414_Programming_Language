@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -30,7 +31,8 @@
 					"name" : "Parsing",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -39,8 +41,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "parsing::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-parsing-Debug-4ecb0ea575c2a98e1813.json",
+					"jsonFile" : "target-parsing-Debug-5f3552bbacc2a81aa9da.json",
 					"name" : "parsing",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "parsingFile::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-parsingFile-Debug-eec6f89bf7056bb64ac2.json",
+					"name" : "parsingFile",
 					"projectIndex" : 0
 				}
 			]
@@ -49,12 +58,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/hctit/OneDrive/Documents/CS_414_Programming_Language/Assignments/Asg 04/Parsing Program/out/build/x64-Debug",
-		"source" : "C:/Users/hctit/OneDrive/Documents/CS_414_Programming_Language/Assignments/Asg 04/Parsing Program"
+		"build" : "F:/GitSSD/CS_414_Programming_Language/Assignments/Asg 04/Parsing Program/out/build/x64-Debug",
+		"source" : "F:/GitSSD/CS_414_Programming_Language/Assignments/Asg 04/Parsing Program"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 4
 	}
 }

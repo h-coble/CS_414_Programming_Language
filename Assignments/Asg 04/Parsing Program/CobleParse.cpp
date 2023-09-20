@@ -3,6 +3,7 @@
 #include <stack>
 #include <string>
 #include <iomanip>
+#include <fstream>
 
 enum action //used for easy tracking of index of 2D array
 {
@@ -83,7 +84,7 @@ void printStateStack(std::stack<int> state)
         else if( reload.top() == 10)
             tempStr+= "10";
         else if(reload.top() == 11)
-            tempStr+= 11;
+            tempStr+= "11";
         state.push(reload.top());
         reload.pop();
     }
@@ -272,35 +273,29 @@ int main(){
     std::stack<char> expStack = stringToStack("A+B*C$");
     std::stack<int> stateStack;
 
-    while(true)
+    std::ifstream inFile;
+    std::ofstream oFile;
+
+    inFile.open("../../../expressions.txt");
+    while(!inFile.eof())
     {
-        std::cout << "\n\nEnter your expression, ending with \'$\'\n"
-                  << "Please note that every character will be represented as I for \"id\"\n"
-                  << "Type \"Exit\" to exit.\n\n>";
-        std::getline(std::cin, expression);
+        std::getline(inFile, expression);
+        expStack = stringToStack(expression);
+        while (!stateStack.empty())
+            stateStack.pop();
 
-        if(expression == "Exit" || expression == "exit")
-            return 0;
-        else if (expression[expression.length()-1] != '$')
-        {
-            std::cerr << "\nExpression must end with $; re-enter expression with $.\n\n";
-            continue;
-        }
+        stateStack.push(0);
+        std::cout << expression << std::endl;
+        std::cout << std::setw(25) << std::left << "State Stack" << std::setw(25) << std::left << "Input" << "Action\n";
+        if (parseExpression(expStack, stateStack))
+            std::cout << "\n\nExpression is supported by the rules given by the table.\n";
         else
-            {
-                expStack = stringToStack(expression);
-                while(!stateStack.empty())
-                    stateStack.pop();
+            std::cout << "\n\nExpression is not supported.\n";
 
-                stateStack.push(0);
-                std::cout <<  std::setw(25)<<std::left <<"State Stack" << std::setw(25) <<std::left<< "Input" << "Action\n";
-                if (parseExpression(expStack,stateStack))
-                    std::cout << "\n\nExpression is supported by the rules given by the table.\n";
-                else
-                    std::cout << "\n\nExpression is not supported.\n";
-            }
+        std::cout << std::endl;
     }
-    std::cerr << "Loop broken.\n";
-    return -1;
+
+    inFile.close();
+    return 0;
 } 
 
