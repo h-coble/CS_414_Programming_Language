@@ -274,9 +274,9 @@ int main(){
     std::stack<int> stateStack;
 
     std::ifstream inFile;
-    std::ofstream oFile;
 
-    inFile.open("../../../expressions.txt");
+
+    inFile.open("expressions.txt");
     while(!inFile.eof())
     {
         std::getline(inFile, expression);
