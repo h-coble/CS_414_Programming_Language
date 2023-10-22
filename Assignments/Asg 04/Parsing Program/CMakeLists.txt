@@ -10,8 +10,9 @@ include_directories(../../include)
 
 #add the executable
 
-add_executable(parsing parsing.cpp)
+add_executable(parsing CobleParse.cpp)
 add_executable(parsingFile parsingFile.cpp)
+add_executable(canvas canvas.cpp)
 
 
 

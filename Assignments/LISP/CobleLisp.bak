@@ -1,0 +1,45 @@
+#lang scheme
+
+;GIVEN LIST
+(define sample-list '( -8 9 4 5 -3 -1 2))
+
+;FUNCTION 1
+(define (sum-all lst)
+    (define (helper lst sum)
+      (cond
+        ((null? lst) sum) ;If list is empty, return sum
+        (else (helper (cdr lst) (+ sum (car lst)) ) ) ;else return car + return from iter of cdr
+        ) 
+      )
+    
+    (helper lst 0)
+                  )
+
+;FUNCTION TWO
+(define (positive-only lst)
+    (cond
+      ((null? lst) '())
+      ((> (car lst) 0) (cons (car lst) (positive-only (cdr lst)) ) ) 
+    (else (positive-only (cdr lst)) )
+    )
+   )
+
+;FUNCTION THREE
+(define (negative-only lst)
+    (cond
+      ((null? lst) '())
+      ((< (car lst) 0) (cons (car lst) (negative-only (cdr lst)) ) ) 
+    (else (negative-only (cdr lst)) )
+    )
+   )
+
+
+
+
+
+;TEST DRIVER
+(display (sum-all sample-list))
+(newline)
+(display (positive-only sample-list))
+(newline)
+(display (negative-only sample-list))
