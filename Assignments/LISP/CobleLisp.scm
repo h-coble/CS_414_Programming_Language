@@ -41,16 +41,25 @@
 
 ;PROGRAM PROBLEMS 1 - 6
 (define (Program1)
+  (display "Given list: ")
+  (display sample-list)
+  (newline)
+  (display "1. Sum of All: ")
 (display (sum-all sample-list))
 (newline)
+  (display "2. Positives: ")
 (display (positive-only sample-list))
 (newline)
+  (display "3. Negatives: ")
 (display (negative-only sample-list))
 (newline)
+  (display "4. Average: ")
 (display (average sample-list))
 (newline)
+  (display "5. Average of Positives: ")
 (display (average (positive-only sample-list)))
 (newline)
+  (display "6. Average of Negatives: ")
 (display (average (negative-only sample-list))))
 
 
@@ -81,29 +90,46 @@
   (display "Starting List: ")
   (display (pl))
   (newline)
+  (newline)
+  (display "7. Get Values of Properties")
+  (newline)
+  (display "Tenure? ")
+  (display (getprop (pl) 'Tenure))
+  (newline)
 
-  
+  (display "Title: ")
+  (display (getprop (pl) 'Title))
+  (newline)
+
+  (display "Univiersity: ")
+  (display (getprop(pl) 'University))
+  (newline)
+
   (display "Dept = Art: ")
   (display (changeprop (pl) 'Department 'ART))
   (newline)
-
-  
+  (newline)
+  (display "8. Change Values of Properties")
+  (newline)
   (display "New Title: ")
   (display (changeprop (pl) 'Title 'CLOWN))
   (newline)
 
   
-  (display "Change a property not present: ")
+  (display "Change a property that DNE (no change): ")
   (display (changeprop (pl) 'Salary '8_Bajillion))
-
+  (newline)
+  (display "Clown in Art Dept: ")
+  (display (changeprop (changeprop (pl) 'Department 'ART) 'Title 'CLOWN))
+  (newline)
+  (newline)
+  (display "9. Adding Properties")
   (newline)
   (display "Add Salary to Property List: ")
-  (display (addprop (pl) 'Salary 'TWO_MEASLY_CENTS))
-  (newline)
-  
-  (display "Clown in Art Dept: ")
-  (display (changeprop (changeprop (pl) 'Department 'ART) 'Title 'CLOWN)))
+  (display (addprop (pl) 'Salary 'TWO_MEASLY_CENTS)))
 
+  
+  
 (display "Program1 (Problems 1 - 6)")
 (newline)
 (Program1)
