@@ -141,3 +141,12 @@
 (newline)
 (Program2)
 (newline)
+
+
+(define (prompt/read prompt)
+    (display prompt)
+    (read-line))
+(define (addnewprop lst)
+  (display "Enter your property first, then its value: ")
+  (display
+  (cons (read) (cons (read) lst))))
